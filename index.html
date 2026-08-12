@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARITDER — Arıt Köyü Kültür, Turizm ve Kalkınma Derneği</title>
+<meta name="description" content="ARITDER — Arıt Köyü Kültür, Turizm ve Kalkınma Derneği. Bartın'ın saklı cenneti Arıt: Küre Dağları'nın eteğinde tarih, doğa, yayla şenlikleri ve kestane balı diyarı.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🐝%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   ARITDER — tek dosyalık site. Renkler ve temel ayarlar burada.
+   ============================================================ */
+:root{
+  --yesil-koyu:#12372a;
+  --yesil:#1e5540;
+  --yesil-acik:#2d7a5b;
+  --bal:#e9a319;
+  --bal-acik:#f6c453;
+  --krem:#faf6ee;
+  --krem-koyu:#f1e9d8;
+  --metin:#25332c;
+  --metin-soluk:#5c6b62;
+  --beyaz:#ffffff;
+  --kart:#ffffff;
+  --golge:0 10px 30px rgba(18,55,42,.10);
+  --radius:18px;
+}
+html[data-tema="gece"]{
+  --yesil-koyu:#0b241b;
+  --yesil:#143c2e;
+  --yesil-acik:#2d7a5b;
+  --krem:#0f1a15;
+  --krem-koyu:#16241d;
+  --metin:#e8efe9;
+  --metin-soluk:#9fb3a7;
+  --kart:#16241d;
+  --golge:0 10px 30px rgba(0,0,0,.35);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
+  background:var(--krem);
+  color:var(--metin);
+  line-height:1.65;
+  overflow-x:hidden;
+  transition:background .4s,color .4s;
+}
+h1,h2,h3,.serif{font-family:'Playfair Display',Georgia,serif}
+img{max-width:100%;display:block}
+a{color:inherit}
+
+/* ---- bal damlası scroll çubuğu ---- */
+#balCubuk{position:fixed;top:0;left:0;height:5px;width:0;z-index:1000;
+  background:linear-gradient(90deg,var(--bal),var(--bal-acik));
+  border-radius:0 4px 4px 0;box-shadow:0 0 12px rgba(233,163,25,.6)}
+
+/* ---- üst menü ---- */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 5vw;transition:background .3s,box-shadow .3s}
+nav.dolu{background:color-mix(in srgb,var(--krem) 88%,transparent);
+  backdrop-filter:blur(12px);box-shadow:0 2px 20px rgba(0,0,0,.08)}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem;
+  letter-spacing:.5px;text-decoration:none;color:var(--beyaz);transition:color .3s}
+nav.dolu .logo{color:var(--metin)}
+.logo .amblem{width:42px;height:42px;flex:0 0 auto}
+.menu{display:flex;gap:26px;list-style:none;align-items:center}
+.menu a{text-decoration:none;font-weight:600;font-size:.92rem;color:rgba(255,255,255,.92);
+  padding:4px 0;border-bottom:2px solid transparent;transition:all .25s}
+nav.dolu .menu a{color:var(--metin)}
+.menu a:hover,.menu a.aktif{border-bottom-color:var(--bal);color:var(--bal)}
+#temaBtn{background:none;border:2px solid rgba(255,255,255,.4);color:inherit;
+  border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:1rem;
+  display:grid;place-items:center;transition:all .25s}
+nav.dolu #temaBtn{border-color:var(--metin-soluk)}
+#temaBtn:hover{transform:rotate(20deg) scale(1.1);border-color:var(--bal)}
+#hamburger{display:none;background:none;border:none;cursor:pointer;z-index:950}
+#hamburger span{display:block;width:26px;height:3px;margin:5px 0;border-radius:2px;
+  background:var(--beyaz);transition:all .3s}
+nav.dolu #hamburger span{background:var(--metin)}
+
+/* ---- hero ---- */
+header{position:relative;height:100vh;min-height:640px;display:flex;
+  align-items:center;justify-content:center;text-align:center;
+  overflow:hidden;background:linear-gradient(180deg,#0e2f22 0%,#1e5540 45%,#2d7a5b 100%)}
+html[data-tema="gece"] header{background:linear-gradient(180deg,#050f0a 0%,#0b241b 50%,#143c2e 100%)}
+.hero-katman{position:absolute;left:0;right:0;bottom:0;width:100%;pointer-events:none}
+.hero-icerik{position:relative;z-index:5;color:#fff;padding:0 20px;max-width:920px}
+.hero-ust{font-size:.95rem;letter-spacing:6px;text-transform:uppercase;
+  color:var(--bal-acik);font-weight:700;margin-bottom:18px;opacity:0;animation:yukari 1s .3s forwards}
+.hero-icerik h1{font-size:clamp(3rem,9vw,6.5rem);line-height:1.05;font-weight:800;
+  opacity:0;animation:yukari 1s .55s forwards}
+.hero-icerik h1 .bal-renk{color:var(--bal-acik);font-style:italic}
+.hero-alt{font-size:clamp(1rem,2.2vw,1.3rem);margin:22px auto 34px;max-width:640px;
+  color:rgba(255,255,255,.85);opacity:0;animation:yukari 1s .8s forwards}
+.hero-btnler{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;
+  opacity:0;animation:yukari 1s 1.05s forwards}
+.btn{display:inline-block;padding:14px 32px;border-radius:50px;font-weight:700;
+  text-decoration:none;font-size:.95rem;transition:all .3s;border:2px solid transparent}
+.btn-bal{background:linear-gradient(135deg,var(--bal),var(--bal-acik));color:#3a2a05;
+  box-shadow:0 8px 24px rgba(233,163,25,.4)}
+.btn-bal:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(233,163,25,.55)}
+.btn-cizgi{border-color:rgba(255,255,255,.6);color:#fff}
+.btn-cizgi:hover{background:rgba(255,255,255,.12);border-color:#fff}
+@keyframes yukari{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+.asagi-ok{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:6;
+  color:rgba(255,255,255,.7);font-size:1.6rem;animation:zipla 2s infinite;text-decoration:none}
+@keyframes zipla{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,10px)}}
+
+/* uçan arı */
+#ari{position:absolute;z-index:4;width:54px;height:54px;top:24%;left:-60px;
+  animation:ucus 26s linear infinite;filter:drop-shadow(0 4px 8px rgba(0,0,0,.3))}
+#ari svg{animation:salinim 1.2s ease-in-out infinite alternate;width:100%;height:100%}
+@keyframes ucus{
+  0%{left:-70px;top:24%}12%{top:16%}25%{top:30%;left:30%}38%{top:12%}
+  50%{top:26%;left:62%}64%{top:18%}78%{top:32%;left:88%}100%{left:105%;top:20%}}
+@keyframes salinim{from{transform:translateY(-6px) rotate(-4deg)}to{transform:translateY(6px) rotate(5deg)}}
+.kanat{transform-origin:center;animation:kanatcirp .12s linear infinite alternate}
+@keyframes kanatcirp{from{transform:scaleY(1)}to{transform:scaleY(.4)}}
+
+/* hava durumu rozeti */
+#hava{position:absolute;top:86px;right:5vw;z-index:6;
+  background:rgba(255,255,255,.14);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.25);border-radius:16px;color:#fff;
+  padding:10px 18px;font-size:.88rem;display:none;align-items:center;gap:10px;
+  animation:yukari .8s forwards}
+#hava .derece{font-size:1.4rem;font-weight:800}
+
+/* ---- geri sayım şeridi ---- */
+#sayim{background:linear-gradient(120deg,var(--yesil-koyu),var(--yesil));
+  color:#fff;padding:34px 5vw;position:relative;overflow:hidden}
+#sayim::before{content:"";position:absolute;inset:0;opacity:.07;
+  background-image:radial-gradient(circle at 20% 50%,var(--bal) 0 6px,transparent 7px),
+  radial-gradient(circle at 80% 30%,var(--bal) 0 5px,transparent 6px);
+  background-size:140px 140px}
+.sayim-ic{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:26px;
+  align-items:center;justify-content:space-between;position:relative}
+.sayim-baslik h3{font-size:1.5rem;color:var(--bal-acik)}
+.sayim-baslik p{color:rgba(255,255,255,.75);font-size:.92rem}
+.sayim-kutular{display:flex;gap:14px}
+.skutu{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);
+  border-radius:14px;padding:12px 10px;min-width:78px;text-align:center}
+.skutu b{display:block;font-size:2rem;font-weight:800;color:var(--bal-acik);font-variant-numeric:tabular-nums}
+.skutu span{font-size:.72rem;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.7)}
+
+/* ---- genel bölüm düzeni ---- */
+section{padding:96px 5vw}
+.dar{max-width:1160px;margin:0 auto}
+.etiket{display:inline-block;background:color-mix(in srgb,var(--bal) 18%,transparent);
+  color:#a06d00;padding:6px 18px;border-radius:30px;font-size:.8rem;font-weight:800;
+  letter-spacing:3px;text-transform:uppercase;margin-bottom:16px}
+html[data-tema="gece"] .etiket{color:var(--bal-acik)}
+.baslik{font-size:clamp(1.9rem,4.5vw,3rem);line-height:1.15;margin-bottom:18px}
+.baslik em{color:var(--yesil-acik)}
+.aciklama{color:var(--metin-soluk);max-width:720px;font-size:1.05rem}
+
+/* scroll'da belirme */
+.gizli{opacity:0;transform:translateY(36px);transition:opacity .8s,transform .8s}
+.goster{opacity:1;transform:none}
+
+/* ---- hakkımızda ---- */
+.hakk-izgara{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;margin-top:30px}
+.hakk-foto{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--golge)}
+.hakk-foto img{width:100%;height:440px;object-fit:cover;transition:transform .6s}
+.hakk-foto:hover img{transform:scale(1.05)}
+.hakk-rozet{position:absolute;bottom:18px;left:18px;background:rgba(18,55,42,.85);
+  backdrop-filter:blur(8px);color:#fff;padding:10px 18px;border-radius:12px;font-size:.85rem}
+.misyon-liste{list-style:none;margin-top:22px;display:grid;gap:14px}
+.misyon-liste li{display:flex;gap:14px;align-items:flex-start}
+.misyon-liste .ikon{flex:0 0 44px;height:44px;border-radius:12px;display:grid;place-items:center;
+  background:color-mix(in srgb,var(--yesil-acik) 15%,transparent);font-size:1.3rem}
+.misyon-liste b{display:block}
+.misyon-liste small{color:var(--metin-soluk)}
+
+/* sayaçlar */
+.sayaclar{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:64px}
+.sayac{background:var(--kart);border-radius:var(--radius);padding:28px 18px;text-align:center;
+  box-shadow:var(--golge);border-top:4px solid var(--bal)}
+.sayac b{font-size:2.4rem;font-weight:800;color:var(--yesil-acik);font-variant-numeric:tabular-nums}
+.sayac span{display:block;color:var(--metin-soluk);font-size:.88rem;margin-top:4px}
+
+/* ---- başkan ---- */
+#yonetim{padding-top:0}
+.baskan-kart{background:linear-gradient(135deg,var(--yesil-koyu),var(--yesil));color:#fff;
+  border-radius:24px;padding:46px;display:grid;grid-template-columns:auto 1fr;gap:38px;
+  align-items:center;box-shadow:0 24px 60px rgba(18,55,42,.25);position:relative;overflow:hidden}
+.baskan-kart::before{content:"🐝";position:absolute;right:-20px;bottom:-30px;font-size:11rem;
+  opacity:.06;transform:rotate(-15deg)}
+.monogram{width:150px;height:150px;border-radius:50%;
+  background:linear-gradient(135deg,var(--bal),var(--bal-acik));color:#3a2a05;
+  display:grid;place-items:center;font-family:'Playfair Display',serif;font-size:3rem;
+  font-weight:800;box-shadow:0 12px 32px rgba(233,163,25,.45);border:5px solid rgba(255,255,255,.25)}
+.baskan-bilgi .unvan{font-size:.8rem;letter-spacing:3px;text-transform:uppercase;
+  color:var(--bal-acik);font-weight:800}
+.baskan-bilgi h3{font-size:2rem;margin:6px 0 4px}
+.baskan-bilgi .rol{color:rgba(255,255,255,.75);font-size:.92rem;margin-bottom:16px}
+.baskan-soz{border-left:4px solid var(--bal);padding:10px 18px;margin:14px 0;
+  background:rgba(255,255,255,.06);border-radius:0 12px 12px 0;font-style:italic;
+  color:rgba(255,255,255,.92);font-size:1.02rem}
+.rozetler{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.rozet{background:rgba(246,196,83,.15);border:1px solid rgba(246,196,83,.4);
+  color:var(--bal-acik);padding:7px 16px;border-radius:30px;font-size:.8rem;font-weight:700}
+@media(max-width:760px){.baskan-kart{grid-template-columns:1fr;text-align:center;padding:34px 24px}
+  .monogram{margin:0 auto}.baskan-soz{text-align:left}}
+
+/* ---- zaman tüneli ---- */
+#tarih{background:var(--krem-koyu)}
+.tunel{position:relative;max-width:860px;margin:50px auto 0;padding-left:0}
+.tunel::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:3px;
+  background:linear-gradient(var(--bal),var(--yesil-acik));transform:translateX(-50%);border-radius:2px}
+.durak{position:relative;width:50%;padding:0 44px 54px}
+.durak:nth-child(odd){left:0;text-align:right}
+.durak:nth-child(even){left:50%}
+.durak::before{content:"";position:absolute;top:6px;width:18px;height:18px;border-radius:50%;
+  background:var(--bal);border:4px solid var(--krem-koyu);box-shadow:0 0 0 3px var(--bal)}
+.durak:nth-child(odd)::before{right:-11px}
+.durak:nth-child(even)::before{left:-11px}
+.durak .yil{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:800;color:var(--yesil-acik)}
+.durak p{color:var(--metin-soluk);font-size:.95rem;margin-top:6px}
+
+/* ---- faaliyet kartları ---- */
+.kart-izgara{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px;margin-top:48px}
+.fkart{background:var(--kart);border-radius:var(--radius);padding:34px 28px;box-shadow:var(--golge);
+  position:relative;overflow:hidden;transition:transform .35s,box-shadow .35s}
+.fkart:hover{transform:translateY(-8px);box-shadow:0 22px 44px rgba(18,55,42,.16)}
+.fkart::after{content:"";position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--bal),var(--yesil-acik));transform:scaleX(0);
+  transform-origin:left;transition:transform .4s}
+.fkart:hover::after{transform:scaleX(1)}
+.fkart .fikon{font-size:2.4rem;margin-bottom:16px;display:inline-block}
+.fkart h3{font-size:1.25rem;margin-bottom:10px}
+.fkart p{color:var(--metin-soluk);font-size:.94rem}
+
+/* ---- şenlik programı ---- */
+#senlik{background:linear-gradient(160deg,var(--yesil-koyu),var(--yesil));color:#fff}
+#senlik .etiket{background:rgba(246,196,83,.2);color:var(--bal-acik)}
+#senlik .aciklama{color:rgba(255,255,255,.78)}
+.program{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:24px;margin-top:46px}
+.gun{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
+  border-radius:var(--radius);padding:30px;backdrop-filter:blur(6px);transition:all .3s}
+.gun:hover{background:rgba(255,255,255,.12);transform:translateY(-6px)}
+.gun .gtarih{font-size:.8rem;letter-spacing:3px;text-transform:uppercase;color:var(--bal-acik);font-weight:800}
+.gun h3{font-size:1.5rem;margin:8px 0 18px}
+.gun ul{list-style:none;display:grid;gap:12px}
+.gun li{display:flex;gap:12px;font-size:.93rem;color:rgba(255,255,255,.85)}
+.gun li b{color:var(--bal-acik);min-width:52px;font-variant-numeric:tabular-nums}
+
+/* ---- gezilecek yerler ---- */
+.yer-izgara{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px;margin-top:48px}
+.yer{position:relative;border-radius:var(--radius);overflow:hidden;height:380px;
+  box-shadow:var(--golge);cursor:pointer}
+.yer img,.yer .foto-yedek{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.yer:hover img{transform:scale(1.08)}
+.foto-yedek{display:grid;place-items:center;font-size:4rem;
+  background:linear-gradient(135deg,var(--yesil),var(--yesil-acik))}
+.yer .ort{position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(10,30,22,.92));
+  display:flex;flex-direction:column;justify-content:flex-end;padding:26px;color:#fff}
+.yer h3{font-size:1.35rem;margin-bottom:6px}
+.yer p{font-size:.88rem;color:rgba(255,255,255,.8);max-height:0;overflow:hidden;transition:max-height .5s}
+.yer:hover p{max-height:140px}
+.yer .mesafe{position:absolute;top:16px;right:16px;background:rgba(233,163,25,.92);color:#3a2a05;
+  font-size:.75rem;font-weight:800;padding:6px 14px;border-radius:30px}
+
+/* ---- video ---- */
+#video{background:var(--krem-koyu)}
+.video-izgara{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:26px;margin-top:46px}
+.vkart{border-radius:var(--radius);overflow:hidden;box-shadow:var(--golge);background:var(--kart);
+  display:block;text-decoration:none;color:inherit;transition:transform .3s,box-shadow .3s}
+.vkart:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(18,55,42,.2)}
+.vkart .cerceve{position:relative;padding-top:56.25%;background:#0a1f16;overflow:hidden}
+.vkart .cerceve img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.vkart:hover .cerceve img{transform:scale(1.06)}
+.oynat{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:68px;height:48px;background:rgba(255,0,0,.92);border-radius:14px;
+  display:grid;place-items:center;transition:all .3s;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.oynat::after{content:"";border-style:solid;border-width:10px 0 10px 17px;
+  border-color:transparent transparent transparent #fff;margin-left:3px}
+.vkart:hover .oynat{background:#ff0000;transform:translate(-50%,-50%) scale(1.12)}
+.vkart .vbaslik{padding:16px 20px;font-weight:700;font-size:.95rem}
+.vkart .vbaslik small{display:block;font-weight:500;color:var(--metin-soluk);margin-top:3px;font-size:.78rem}
+
+/* ---- galeri ---- */
+.galeri{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  grid-auto-rows:220px;gap:14px;margin-top:46px}
+.gfoto{border-radius:14px;overflow:hidden;position:relative;cursor:zoom-in;box-shadow:var(--golge)}
+.gfoto:nth-child(1),.gfoto:nth-child(6){grid-row:span 2}
+.gfoto img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.gfoto:hover img{transform:scale(1.07)}
+.gfoto .gyazi{position:absolute;left:0;right:0;bottom:0;padding:30px 14px 12px;
+  background:linear-gradient(transparent,rgba(0,0,0,.75));color:#fff;font-size:.8rem;
+  opacity:0;transition:opacity .3s}
+.gfoto:hover .gyazi{opacity:1}
+#isikKutusu{position:fixed;inset:0;background:rgba(5,15,10,.94);z-index:1100;
+  display:none;align-items:center;justify-content:center;padding:4vw;cursor:zoom-out}
+#isikKutusu.acik{display:flex}
+#isikKutusu img{max-width:92vw;max-height:88vh;border-radius:12px;object-fit:contain}
+#isikKutusu .kapat{position:absolute;top:22px;right:30px;color:#fff;font-size:2.2rem;
+  background:none;border:none;cursor:pointer}
+
+/* ---- sosyal medya ---- */
+.sosyal-izgara{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:30px;margin-top:46px;align-items:start}
+.skart{background:var(--kart);border-radius:var(--radius);box-shadow:var(--golge);overflow:hidden}
+.skart .sbaslik{display:flex;align-items:center;gap:14px;padding:20px 24px;border-bottom:1px solid var(--krem-koyu)}
+.skart .sikon{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;color:#fff;font-size:1.4rem;font-weight:800}
+.fb .sikon{background:#1877f2}
+.ig .sikon{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}
+.yt .sikon{background:#ff0000}
+.skart h3{font-size:1.1rem}
+.skart .sbaslik small{color:var(--metin-soluk)}
+.skart .sgovde{padding:20px 24px}
+.fb-cerceve{width:100%;min-height:540px;border:0}
+.ig-not{background:color-mix(in srgb,var(--bal) 12%,transparent);border-radius:12px;
+  padding:16px;font-size:.88rem;color:var(--metin-soluk);margin-top:14px}
+.sos-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:40px;
+  font-weight:700;font-size:.88rem;text-decoration:none;transition:transform .25s;margin:6px 6px 0 0}
+.sos-btn:hover{transform:translateY(-3px)}
+.sos-fb{background:#1877f2;color:#fff}
+.sos-ig{background:linear-gradient(45deg,#f09433,#dc2743,#bc1888);color:#fff}
+
+/* ---- harita & iletişim ---- */
+.ilet-izgara{display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:46px;align-items:stretch}
+.harita-kart{border-radius:var(--radius);overflow:hidden;box-shadow:var(--golge);min-height:420px}
+.harita-kart iframe{width:100%;height:100%;min-height:420px;border:0}
+.ilet-kart{background:var(--kart);border-radius:var(--radius);box-shadow:var(--golge);padding:36px}
+.ilet-satir{display:flex;gap:16px;align-items:flex-start;margin-bottom:22px}
+.ilet-satir .iikon{flex:0 0 46px;height:46px;border-radius:13px;display:grid;place-items:center;
+  background:color-mix(in srgb,var(--yesil-acik) 14%,transparent);font-size:1.3rem}
+.ilet-satir b{display:block;font-size:.95rem}
+.ilet-satir small{color:var(--metin-soluk)}
+
+/* ---- footer ---- */
+footer{background:var(--yesil-koyu);color:rgba(255,255,255,.75);padding:60px 5vw 30px;position:relative;overflow:hidden}
+.foot-izgara{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;position:relative}
+footer h4{color:#fff;margin-bottom:14px;font-family:'Manrope',sans-serif;font-size:1rem;letter-spacing:1px}
+footer ul{list-style:none;display:grid;gap:8px}
+footer a{color:rgba(255,255,255,.75);text-decoration:none;font-size:.9rem}
+footer a:hover{color:var(--bal-acik)}
+.foot-alt{max-width:1160px;margin:44px auto 0;padding-top:22px;border-top:1px solid rgba(255,255,255,.12);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.82rem;color:rgba(255,255,255,.5)}
+.foot-logo{display:flex;align-items:center;gap:12px;margin-bottom:14px;color:#fff;font-weight:800;font-size:1.2rem}
+.foot-logo .amblem{width:46px;height:46px}
+
+/* ---- mobil ---- */
+@media(max-width:900px){
+  .hakk-izgara,.ilet-izgara,.foot-izgara{grid-template-columns:1fr}
+  .sayaclar{grid-template-columns:repeat(2,1fr)}
+  .tunel::before{left:12px}
+  .durak{width:100%;left:0!important;text-align:left!important;padding:0 0 44px 44px}
+  .durak::before{left:3px!important;right:auto!important}
+  #hamburger{display:block}
+  .menu{position:fixed;inset:0;background:var(--yesil-koyu);flex-direction:column;
+    justify-content:center;transform:translateX(100%);transition:transform .35s;z-index:940}
+  .menu.acik{transform:none}
+  .menu a{color:#fff!important;font-size:1.3rem}
+  #hava{top:auto;bottom:90px;right:16px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,#ari,#ari svg,.kanat{animation:none!important;transition:none!important}
+  .hero-ust,.hero-icerik h1,.hero-alt,.hero-btnler{opacity:1}
+}
+</style>
+</head>
+<body>
+
+<div id="balCubuk"></div>
+
+<!-- ================= MENÜ ================= -->
+<nav id="menuBar">
+  <a class="logo" href="#anasayfa">
+    <svg class="amblem" viewBox="0 0 64 64" aria-hidden="true">
+      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="none" stroke="#e9a319" stroke-width="3"/>
+      <path d="M18 42 L28 26 L36 36 L44 22 L50 42 Z" fill="#2d7a5b"/>
+      <circle cx="26" cy="18" r="4" fill="#f6c453"/>
+    </svg>
+    ARITDER
+  </a>
+  <ul class="menu" id="menuListe">
+    <li><a href="#anasayfa">Ana Sayfa</a></li>
+    <li><a href="#dernek">Derneğimiz</a></li>
+    <li><a href="#tarih">Tarihçe</a></li>
+    <li><a href="#faaliyet">Faaliyetler</a></li>
+    <li><a href="#senlik">Şenlik</a></li>
+    <li><a href="#kesfet">Keşfet</a></li>
+    <li><a href="#galeri">Galeri</a></li>
+    <li><a href="#sosyal">Sosyal Medya</a></li>
+    <li><a href="#iletisim">İletişim</a></li>
+    <li><button id="temaBtn" title="Gece / Gündüz modu" aria-label="Tema değiştir">🌙</button></li>
+  </ul>
+  <button id="hamburger" aria-label="Menüyü aç"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header id="anasayfa">
+  <!-- hava durumu (open-meteo, anahtar gerekmez) -->
+  <div id="hava" aria-live="polite">
+    <span id="havaIkon" style="font-size:1.6rem">⛅</span>
+    <div><div class="derece"><span id="havaDerece">--</span>°C</div>
+    <div style="opacity:.8;font-size:.78rem">Arıt'ta şu an · <span id="havaDurum">yükleniyor</span></div></div>
+  </div>
+
+  <!-- uçan arı: Arıt'ın "arı"sı 🐝 -->
+  <div id="ari" aria-hidden="true">
+    <svg viewBox="0 0 64 64">
+      <ellipse class="kanat" cx="26" cy="14" rx="10" ry="7" fill="rgba(255,255,255,.75)"/>
+      <ellipse class="kanat" cx="40" cy="13" rx="9" ry="6" fill="rgba(255,255,255,.6)"/>
+      <ellipse cx="32" cy="32" rx="16" ry="12" fill="#f6c453"/>
+      <path d="M24 21 Q26 32 24 43 M32 20 Q34 32 32 44 M40 22 Q42 32 40 42" stroke="#3a2a05" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <circle cx="15" cy="30" r="6.5" fill="#3a2a05"/>
+      <circle cx="13" cy="28" r="1.5" fill="#fff"/>
+      <path d="M47 32 L56 30" stroke="#3a2a05" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <!-- katmanlı dağ silüetleri (paralaks) -->
+  <svg class="hero-katman" style="opacity:.35;height:52%" viewBox="0 0 1440 400" preserveAspectRatio="none" data-hiz="0.15">
+    <path d="M0 400 L0 220 Q180 120 360 200 T720 160 T1080 210 T1440 150 L1440 400 Z" fill="#0a241a"/>
+  </svg>
+  <svg class="hero-katman" style="opacity:.55;height:42%" viewBox="0 0 1440 340" preserveAspectRatio="none" data-hiz="0.3">
+    <path d="M0 340 L0 200 Q240 90 480 180 T960 140 T1440 190 L1440 340 Z" fill="#0c2a1e"/>
+  </svg>
+  <svg class="hero-katman" style="height:34%" viewBox="0 0 1440 280" preserveAspectRatio="none" data-hiz="0.5">
+    <path d="M0 280 L0 170 L60 150 L90 170 L140 120 L200 165 L260 100 L330 160 L400 130 L470 170 L540 110 L610 165 L680 135 L750 175 L830 115 L900 165 L980 140 L1060 180 L1140 125 L1220 170 L1300 145 L1380 175 L1440 155 L1440 280 Z" fill="#071b12"/>
+    <g fill="#071b12">
+      <path d="M120 170 l14-40 l14 40 z M110 172 l24-34 l24 34 z"/>
+      <path d="M480 160 l16-46 l16 46 z M468 164 l28-38 l28 38 z"/>
+      <path d="M900 158 l15-44 l15 44 z M890 162 l25-36 l25 36 z"/>
+      <path d="M1260 165 l14-40 l14 40 z M1250 168 l24-33 l24 33 z"/>
+    </g>
+  </svg>
+
+  <div class="hero-icerik">
+    <div class="hero-ust">Bartın · Küre Dağları'nın Eteğinde</div>
+    <h1>Arıt'ın Kalbi<br><span class="bal-renk">Burada Atıyor</span></h1>
+    <p class="hero-alt">ARITDER — Arıt Köyü Kültür, Turizm ve Kalkınma Derneği.
+    1530'dan bu yana yaşayan bir divan, sisli yaylalar, kestane ormanları ve
+    bal kokan bir gelenek. Hep birlikte, köyümüzün yarını için.</p>
+    <div class="hero-btnler">
+      <a class="btn btn-bal" href="#senlik">🎪 Şenlik Programı</a>
+      <a class="btn btn-cizgi" href="#dernek">Derneğimizi Tanıyın</a>
+    </div>
+  </div>
+  <a class="asagi-ok" href="#sayim" aria-label="Aşağı kaydır">⌄</a>
+</header>
+
+<!-- ================= GERİ SAYIM ================= -->
+<div id="sayim">
+  <div class="sayim-ic">
+    <div class="sayim-baslik">
+      <h3 id="sayimBaslik">🏕️ Arıt Doğa ve Yayla Şenlikleri</h3>
+      <p id="sayimAlt">14 – 16 Ağustos 2026 · Arıt Yaylaları</p>
+    </div>
+    <div class="sayim-kutular" id="sayimKutular">
+      <div class="skutu"><b id="sGun">--</b><span>Gün</span></div>
+      <div class="skutu"><b id="sSaat">--</b><span>Saat</span></div>
+      <div class="skutu"><b id="sDakika">--</b><span>Dakika</span></div>
+      <div class="skutu"><b id="sSaniye">--</b><span>Saniye</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= DERNEĞİMİZ ================= -->
+<section id="dernek">
+  <div class="dar">
+    <div class="gizli">
+      <span class="etiket">Derneğimiz</span>
+      <h2 class="baslik">Köyünü Seven, <em>Geleceğini Kuran</em> Bir Aile</h2>
+      <p class="aciklama">ARITDER; Arıt'ın kültürünü yaşatmak, doğal güzelliklerini turizme kazandırmak
+      ve köyümüzün kalkınmasına omuz vermek için bir araya gelen gönüllülerin derneğidir.
+      Gurbetteki hemşehrilerimizle köyümüz arasında köprüyüz.</p>
+    </div>
+    <div class="hakk-izgara">
+      <div class="hakk-foto gizli">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ar%C4%B1t.jpg?width=900"
+             alt="Arıt merkez görünümü" loading="lazy"
+             onerror="this.outerHTML='<div class=&quot;foto-yedek&quot; style=&quot;position:relative;height:440px&quot;>🏔️</div>'">
+        <div class="hakk-rozet">📍 Arıt Merkez — Bartın'a 29 km</div>
+      </div>
+      <div class="gizli">
+        <h3 style="font-size:1.6rem;margin-bottom:8px">Üç sözümüz var:</h3>
+        <ul class="misyon-liste">
+          <li><span class="ikon">🏺</span><div><b>Kültür</b>
+            <small>Divan geleneğinden halk oyunlarına, yöresel mutfaktan el sanatlarına —
+            Arıt'ın hafızasını kayıt altına alıyor, genç kuşaklara aktarıyoruz.</small></div></li>
+          <li><span class="ikon">🥾</span><div><b>Turizm</b>
+            <small>Küre Dağları'nın tampon bölgesindeki yaylalarımızı, mağaralarımızı ve
+            doğa rotalarımızı sürdürülebilir turizmle buluşturuyoruz.</small></div></li>
+          <li><span class="ikon">🌱</span><div><b>Kalkınma</b>
+            <small>Kestane balı, yöresel ürünler ve kırsal girişimcilik projeleriyle
+            köyde üretimin ve gençlerin kalmasının yolunu açıyoruz.</small></div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="sayaclar">
+      <div class="sayac gizli"><b data-hedef="1530">0</b><span>İlk yazılı kayıt: "Arıd Divanı"</span></div>
+      <div class="sayac gizli"><b data-hedef="500">0</b><span>Metre rakımda yayla serinliği</span></div>
+      <div class="sayac gizli"><b data-hedef="15">0</b><span>Km kuş uçuşu Karadeniz</span></div>
+      <div class="sayac gizli"><b data-hedef="3">0</b><span>Gün süren yayla şenliği</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= YÖNETİM / BAŞKAN ================= -->
+<section id="yonetim">
+  <div class="dar">
+    <div class="baskan-kart gizli">
+      <div class="monogram">AK</div>
+      <div class="baskan-bilgi">
+        <div class="unvan">Dernek Başkanımız</div>
+        <h3 class="serif">Ali Satılmış Kalaycı</h3>
+        <div class="rol">Arıt Köyü Kültür, Turizm ve Kalkınma Derneği Başkanı ·
+        Arıt Tarımsal Kalkınma Kooperatifi Yönetimi</div>
+        <div class="baskan-soz">"Arıt'ta belediye teşkilatı yok; ama biz kooperatifimizi ve derneğimizi
+        belediye gibi çalıştıracağız. Hedefimiz Arıt'ı hak ettiği yere taşımak."</div>
+        <p style="color:rgba(255,255,255,.8);font-size:.93rem">Başkanımızın öncülüğünde yayla şenliklerimiz
+        gelenekselleşti: 6 ilden off-road tutkunları, kamp severler ve binlerce misafir her yaz Arıt'ta buluşuyor.</p>
+        <div class="rozetler">
+          <span class="rozet">🏕️ Şenlikleri gelenekselleştirdi</span>
+          <span class="rozet">🚙 6 ilden 50+ off-road aracı</span>
+          <span class="rozet">👥 1.000+ katılımcı</span>
+          <span class="rozet">🌱 Kooperatifle kalkınma</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TARİHÇE ================= -->
+<section id="tarih">
+  <div class="dar">
+    <div class="gizli" style="text-align:center">
+      <span class="etiket">Tarihçe</span>
+      <h2 class="baslik">Beş Asırlık <em>Bir Hikâye</em></h2>
+      <p class="aciklama" style="margin:0 auto">Roma dönemine uzanan izlerden Osmanlı divan teşkilatına,
+      belde belediyesinden bugünün kararlı köyüne — Arıt hep ayakta kaldı.</p>
+    </div>
+    <div class="tunel">
+      <div class="durak gizli"><div class="yil">Antik Çağ</div>
+        <p>Çevrede Roma dönemine ait kalıntılar bulunur. Vadi, Karadeniz ile iç bölgeleri bağlayan eski patikaların üzerindedir.</p></div>
+      <div class="durak gizli"><div class="yil">1530</div>
+        <p>Osmanlı tahrir defterlerinde "Arıd Divanı" olarak kayda geçer. Bir rivayete göre ad, yörenin kızıl toprağından gelir.</p></div>
+      <div class="durak gizli"><div class="yil">1747</div>
+        <p>Bugünkü adıyla yazılı belgelerde anılır. Menteşpiri, Cöcü, Yukarışeyhler, Turanlar ve Balat mahalleleri şekillenir.</p></div>
+      <div class="durak gizli"><div class="yil">1992</div>
+        <p>12 Eylül'de çevre köylerin mahalleleriyle birleşerek Arıt Belediyesi kurulur; Arıt bir belde merkezi olur.</p></div>
+      <div class="durak gizli"><div class="yil">2013</div>
+        <p>Nüfusun azalmasıyla belde statüsü sona erer, Arıt yeniden köy olur. Ama gurbetteki binlerce Arıtlının yüreği köyünde kalır.</p></div>
+      <div class="durak gizli"><div class="yil">Bugün</div>
+        <p>ARITDER çatısı altında kültürümüzü yaşatıyor, şenliklerle binlerce hemşehrimizi her yaz Arıt'ta buluşturuyoruz.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAALİYETLER ================= -->
+<section id="faaliyet">
+  <div class="dar">
+    <div class="gizli">
+      <span class="etiket">Faaliyetlerimiz</span>
+      <h2 class="baslik">Neler <em>Yapıyoruz?</em></h2>
+    </div>
+    <div class="kart-izgara">
+      <div class="fkart gizli"><span class="fikon">🏕️</span><h3>Doğa ve Yayla Şenlikleri</h3>
+        <p>Her Ağustos, üç gün boyunca kamp, konser, halk oyunları, safari ve off-road gösterileriyle Arıt yaylaları şenlenir.</p></div>
+      <div class="fkart gizli"><span class="fikon">🍯</span><h3>Yöresel Ürün Desteği</h3>
+        <p>Kestane balı, köy ürünleri ve el emeği işlerin tanıtımı ve pazarlanmasında üreticimizin yanındayız.</p></div>
+      <div class="fkart gizli"><span class="fikon">🥾</span><h3>Doğa Yürüyüşleri</h3>
+        <p>Küre Dağları'nın tampon bölgesindeki orman rotalarında rehberli yürüyüşler ve fotoğraf gezileri düzenliyoruz.</p></div>
+      <div class="fkart gizli"><span class="fikon">🏎️</span><h3>Off-Road & Motokros</h3>
+        <p>Arıt'ı bölgenin off-road merkezlerinden biri yapma hedefiyle motor sporları etkinliklerine ev sahipliği yapıyoruz.</p></div>
+      <div class="fkart gizli"><span class="fikon">🎓</span><h3>Gençlik ve Eğitim</h3>
+        <p>Öğrencilerimize destek oluyor, köy çocuklarını kültürümüzle büyüten atölyeler kuruyoruz.</p></div>
+      <div class="fkart gizli"><span class="fikon">🤝</span><h3>Hemşehri Dayanışması</h3>
+        <p>İstanbul'dan Bartın'a, gurbetteki tüm Arıtlıları buluşturan geceler, kahvaltılar ve yardımlaşma ağı.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ŞENLİK ================= -->
+<section id="senlik">
+  <div class="dar">
+    <div class="gizli">
+      <span class="etiket">14 – 16 Ağustos 2026</span>
+      <h2 class="baslik" style="color:#fff">Arıt Doğa ve Yayla <em style="color:var(--bal-acik)">Şenlikleri</em></h2>
+      <p class="aciklama">Doğa yürüyüşleri, çadır ve karavan kampı, safari, konserler, halk oyunları,
+      off-road ve motokros… Üç gün boyunca Arıt, Batı Karadeniz'in buluşma noktası.</p>
+    </div>
+    <div class="program">
+      <div class="gun gizli">
+        <div class="gtarih">14 Ağustos · Cuma</div><h3>Kamp Ateşi 🔥</h3>
+        <ul>
+          <li><b>13.00</b> Kamp alanı açılıyor — çadır ve karavanlar kurulur</li>
+          <li><b>18.00</b> Açılış, yöresel ikramlar</li>
+          <li><b>21.00</b> Tarık Yüksel konseri</li>
+        </ul>
+      </div>
+      <div class="gun gizli">
+        <div class="gtarih">15 Ağustos · Cumartesi</div><h3>Safari Günü 🌄</h3>
+        <ul>
+          <li><b>Sabah</b> Arıt Safari — doğa gezisi konvoyu</li>
+          <li><b>Öğlen</b> Halk oyunları gösterileri</li>
+          <li><b>21.00</b> Tayfur Çalık konseri</li>
+        </ul>
+      </div>
+      <div class="gun gizli">
+        <div class="gtarih">16 Ağustos · Pazar</div><h3>Motor Şöleni 🏁</h3>
+        <ul>
+          <li><b>Sabah</b> Off-road parkuru gösterileri</li>
+          <li><b>Öğlen</b> Motokros gösterileri</li>
+          <li><b>Akşam</b> Kapanış ve uğurlama</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= KEŞFET ================= -->
+<section id="kesfet">
+  <div class="dar">
+    <div class="gizli">
+      <span class="etiket">Keşfet</span>
+      <h2 class="baslik">Arıt ve Çevresinde <em>Gezilecek Yerler</em></h2>
+      <p class="aciklama">Sisli vadiler, asırlık ormanlar ve Karadeniz'in en saklı köşeleri — hepsi bir arada.</p>
+    </div>
+    <div class="yer-izgara">
+      <div class="yer gizli">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/K%C3%BCre%20Da%C4%9Flar%C4%B1%20Milli%20Park%C4%B1.jpg?width=900" alt="Küre Dağları Millî Parkı" loading="lazy"
+          onerror="this.outerHTML='<div class=foto-yedek>🌲</div>'">
+        <span class="mesafe">Tampon bölge</span>
+        <div class="ort"><h3>Küre Dağları Millî Parkı</h3>
+          <p>Türkiye'nin ilk PAN Parks sertifikalı millî parkının tampon bölgesindeyiz. El değmemiş kayın ve kestane ormanları, kanyonlar ve zengin yaban hayatı.</p></div>
+      </div>
+      <div class="yer gizli">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ar%C4%B1tyukariseyler.JPG?width=900" alt="Arıt Yukarışeyhler yaylası" loading="lazy"
+          onerror="this.outerHTML='<div class=foto-yedek>⛺</div>'">
+        <span class="mesafe">Arıt</span>
+        <div class="ort"><h3>Arıt Yaylaları</h3>
+          <p>Şenliklerin kalbi: çadır ve karavan kampına açık, yaz sıcağında serin, yıldızları şehir ışıksız izleyebileceğiniz yaylalar. (Fotoğraf: Yukarışeyhler)</p></div>
+      </div>
+      <div class="yer gizli">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/K%C3%BCre%20mountains%20view.jpg?width=900" alt="Gürcüoluk Mağarası çevresi ormanları (temsilî)" loading="lazy"
+          onerror="this.outerHTML='<div class=foto-yedek>🕳️</div>'">
+        <span class="mesafe">Arıt–Amasra yolu</span>
+        <div class="ort"><h3>Gürcüoluk Mağarası</h3>
+          <p>169 metrelik galerisi, sarkıt ve dikitleriyle 2013'te tabiat parkı ilan edilen masalsı mağara. Efsanesiyle "Uyuyan Güzel" olarak da anılır. <em>(Görsel: mağara çevresi ormanları — temsilî)</em></p></div>
+      </div>
+      <div class="yer gizli">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Amasra%20K%C3%B6rfez%20g%C3%B6r%C3%BCn%C3%BCm%C3%BC.jpg?width=900" alt="Amasra körfezi" loading="lazy"
+          onerror="this.outerHTML='<div class=foto-yedek>🌊</div>'">
+        <span class="mesafe">~25 km</span>
+        <div class="ort"><h3>Amasra</h3>
+          <p>UNESCO adayı kalesi, bedesteni ve meşhur salatasıyla 3.000 yıllık liman kenti. Arıt'tan kısa bir yolculukla Karadeniz'in incisindesiniz.</p></div>
+      </div>
+      <div class="yer gizli">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/G%C3%BCzelcehisar%20Lav%20S%C3%BCtunlar%C4%B1.jpg?width=900" alt="Güzelcehisar lav sütunları" loading="lazy"
+          onerror="this.outerHTML='<div class=foto-yedek>🪨</div>'">
+        <span class="mesafe">Bartın kıyısı</span>
+        <div class="ort"><h3>Güzelcehisar Lav Sütunları</h3>
+          <p>80 milyon yıllık, denize inen bazalt lav sütunları — Türkiye'de eşi az bulunan bir jeolojik miras.</p></div>
+      </div>
+      <div class="yer gizli">
+        <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Bart%C4%B1n%20%C3%87ay%C4%B1%20-%20panoramio.jpg?width=900" alt="Bartın Çayı" loading="lazy"
+          onerror="this.outerHTML='<div class=foto-yedek>🛶</div>'">
+        <span class="mesafe">29 km</span>
+        <div class="ort"><h3>Bartın Irmağı & Şehir Merkezi</h3>
+          <p>Üzerinde tekne gezintisi yapılabilen nadir ırmaklarımızdan biri ve tarihî Bartın evleri.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= VİDEO ================= -->
+<section id="video">
+  <div class="dar">
+    <div class="gizli">
+      <span class="etiket">İzle</span>
+      <h2 class="baslik">Arıt'ı Bir de <em>Gökyüzünden</em> Görün</h2>
+    </div>
+    <div class="video-izgara">
+      <a class="vkart gizli" href="https://www.youtube.com/watch?v=h1IWAkP4kyU" target="_blank" rel="noopener">
+        <div class="cerceve">
+          <img src="https://i.ytimg.com/vi/h1IWAkP4kyU/hqdefault.jpg" alt="Arıt Yayla ve Off-Road Şenlikleri videosu" loading="lazy"
+            onerror="this.style.display='none'">
+          <span class="oynat"></span>
+        </div>
+        <div class="vbaslik">🏕️ Arıt Yayla ve Off-Road Şenlikleri<small>Tıklayın — YouTube'da açılır ↗</small></div>
+      </a>
+      <a class="vkart gizli" href="https://www.youtube.com/watch?v=udkLGpLY-HQ" target="_blank" rel="noopener">
+        <div class="cerceve">
+          <img src="https://i.ytimg.com/vi/udkLGpLY-HQ/hqdefault.jpg" alt="4K Bartın, Amasra drone videosu" loading="lazy"
+            onerror="this.style.display='none'">
+          <span class="oynat"></span>
+        </div>
+        <div class="vbaslik">🚁 Bartın & Amasra — 4K Drone<small>Tıklayın — YouTube'da açılır ↗</small></div>
+      </a>
+      <a class="vkart gizli" href="https://www.youtube.com/watch?v=zDShzCSgaXs" target="_blank" rel="noopener">
+        <div class="cerceve">
+          <img src="https://i.ytimg.com/vi/zDShzCSgaXs/hqdefault.jpg" alt="Güzelcehisar lav sütunları drone videosu" loading="lazy"
+            onerror="this.style.display='none'">
+          <span class="oynat"></span>
+        </div>
+        <div class="vbaslik">🪨 Güzelcehisar Lav Sütunları<small>Tıklayın — YouTube'da açılır ↗</small></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALERİ ================= -->
+<section id="galeri">
+  <div class="dar">
+    <div class="gizli">
+      <span class="etiket">Galeri</span>
+      <h2 class="baslik">Arıt'tan <em>Kareler</em></h2>
+      <p class="aciklama">Fotoğraflar Wikimedia Commons ve Unsplash'ten derlenmiştir.
+      Derneğimizin arşivi büyüdükçe bu galeri kendi karelerimizle dolacak.</p>
+    </div>
+    <div class="galeri">
+      <div class="gfoto gizli"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ar%C4%B1t.jpg?width=800" alt="Arıt merkez" loading="lazy"
+        onerror="this.outerHTML='<div class=foto-yedek>🏘️</div>'"><div class="gyazi">Arıt merkez · Wikimedia Commons</div></div>
+      <div class="gfoto gizli"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ar%C4%B1tyukariseyler.JPG?width=800" alt="Arıt Yukarışeyhler" loading="lazy"
+        onerror="this.outerHTML='<div class=foto-yedek>🏞️</div>'"><div class="gyazi">Yukarışeyhler · Wikimedia Commons</div></div>
+      <div class="gfoto gizli"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/The%20beauty%20of%20Amasra.jpg?width=800" alt="Amasra" loading="lazy"
+        onerror="this.outerHTML='<div class=foto-yedek>🌊</div>'"><div class="gyazi">Amasra · Wikimedia Commons</div></div>
+      <div class="gfoto gizli"><img src="https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=800&q=70" alt="Kestane balı" loading="lazy"
+        onerror="this.outerHTML='<div class=foto-yedek>🍯</div>'"><div class="gyazi">Yaylanın altını: kestane balı</div></div>
+      <div class="gfoto gizli"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Guzelcehisar%20Basalt%20Columns%2C%201%2C%20Bartin%2C%20T%C3%BCrkiye.jpg?width=800" alt="Güzelcehisar bazalt sütunları" loading="lazy"
+        onerror="this.outerHTML='<div class=foto-yedek>🪨</div>'"><div class="gyazi">Güzelcehisar bazalt sütunları · Wikimedia</div></div>
+      <div class="gfoto gizli"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/K%C3%BCre%20Da%C4%9Flar%C4%B1%20Milli%20Park%C4%B1-Il%C4%B1ca%20%C5%9Eelalesi%20(2024-06-20).jpg?width=800" alt="Ilıca Şelalesi, Küre Dağları" loading="lazy"
+        onerror="this.outerHTML='<div class=foto-yedek>💧</div>'"><div class="gyazi">Ilıca Şelalesi, Küre Dağları · Wikimedia</div></div>
+      <div class="gfoto gizli"><img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=70" alt="Kamp ateşi" loading="lazy"
+        onerror="this.outerHTML='<div class=foto-yedek>🔥</div>'"><div class="gyazi">Şenlik akşamları</div></div>
+      <div class="gfoto gizli"><img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=70" alt="Sisli tepeler" loading="lazy"
+        onerror="this.outerHTML='<div class=foto-yedek>🌫️</div>'"><div class="gyazi">Sabah sisi vadiyi sarınca</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SOSYAL MEDYA ================= -->
+<section id="sosyal">
+  <div class="dar">
+    <div class="gizli">
+      <span class="etiket">Bizi Takip Edin</span>
+      <h2 class="baslik">Facebook & Instagram'da <em>Arıt</em></h2>
+      <p class="aciklama">Facebook paylaşımlarımız aşağıda <b>otomatik</b> olarak güncellenir —
+      sayfada yeni bir gönderi yayınlandığında burada da görünür.</p>
+    </div>
+    <div class="sosyal-izgara">
+      <div class="skart fb gizli">
+        <div class="sbaslik"><span class="sikon">f</span>
+          <div><h3>Facebook</h3><small>Canlı sayfa akışı</small></div></div>
+        <div class="sgovde" id="fbKutu">
+          <!-- Facebook Sayfa Eklentisi buraya JS ile kurulur -->
+        </div>
+      </div>
+      <div class="skart ig gizli">
+        <div class="sbaslik"><span class="sikon">📸</span>
+          <div><h3>Instagram</h3><small>Arıt'tan kareler</small></div></div>
+        <div class="sgovde">
+          <p style="font-size:.95rem">Instagram hesabımızdaki en yeni fotoğraf ve videolar için profilimizi ziyaret edin.
+          Arıt'ta çektiğiniz kareleri <b>#arıt #aritder #bartın</b> etiketleriyle paylaşın, sayfamızda yer verelim!</p>
+          <div style="margin-top:18px">
+            <a class="sos-btn sos-ig" id="igProfilBtn" href="#" target="_blank" rel="noopener">📷 Instagram Profilimiz</a>
+            <a class="sos-btn sos-ig" style="opacity:.85" href="https://www.instagram.com/explore/locations/753737457/arit-bartin/" target="_blank" rel="noopener">📍 Arıt Konum Etiketi</a>
+          </div>
+          <div class="ig-not">💡 <b>Not:</b> Bu kutu, dosyanın en altındaki <code>AYARLAR</code> bölümüne
+          kendi Instagram kullanıcı adınız yazılarak kişiselleştirilir. Facebook akışı için de aynı yerden
+          sayfa adınızı değiştirmeniz yeterli.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= İLETİŞİM ================= -->
+<section id="iletisim" style="background:var(--krem-koyu)">
+  <div class="dar">
+    <div class="gizli">
+      <span class="etiket">İletişim</span>
+      <h2 class="baslik">Bize <em>Ulaşın</em></h2>
+    </div>
+    <div class="ilet-izgara">
+      <div class="harita-kart gizli">
+        <iframe title="Arıt haritası" loading="lazy"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=32.5000%2C41.6300%2C32.7400%2C41.7400&amp;layer=mapnik&amp;marker=41.6833%2C32.6167"></iframe>
+      </div>
+      <div class="ilet-kart gizli">
+        <div class="ilet-satir"><span class="iikon">📍</span>
+          <div><b>Adres</b><small>Arıt Köyü, Merkez / BARTIN<br>Dernek lokali: (adresinizi buraya yazın)</small></div></div>
+        <div class="ilet-satir"><span class="iikon">✉️</span>
+          <div><b>E-posta</b><small>dernek@aritder.org <em>(kendi adresinizle güncelleyin)</em></small></div></div>
+        <div class="ilet-satir"><span class="iikon">📞</span>
+          <div><b>Telefon</b><small>+90 (5xx) xxx xx xx <em>(numaranızı ekleyin)</em></small></div></div>
+        <div class="ilet-satir"><span class="iikon">🕐</span>
+          <div><b>Nasıl gidilir?</b><small>Bartın merkezden Arıt yolunu takip edin (~29 km, ~35 dk).
+          Yol iyileştirme çalışmaları tamamlandığında süre daha da kısalacak.</small></div></div>
+        <a class="btn btn-bal" style="margin-top:8px" href="mailto:dernek@aritder.org?subject=ARITDER%20İletişim">Mesaj Gönderin</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="foot-izgara">
+    <div>
+      <div class="foot-logo">
+        <svg class="amblem" viewBox="0 0 64 64" aria-hidden="true">
+          <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="none" stroke="#e9a319" stroke-width="3"/>
+          <path d="M18 42 L28 26 L36 36 L44 22 L50 42 Z" fill="#2d7a5b"/>
+          <circle cx="26" cy="18" r="4" fill="#f6c453"/>
+        </svg>
+        ARITDER
+      </div>
+      <p style="font-size:.9rem;max-width:380px">Arıt Köyü Kültür, Turizm ve Kalkınma Derneği.
+      Köyünü seven herkesi aramızda görmekten mutluluk duyarız. 🐝</p>
+      <div style="margin-top:16px">
+        <a class="sos-btn sos-fb" id="fbProfilBtn" href="#" target="_blank" rel="noopener">Facebook</a>
+        <a class="sos-btn sos-ig" id="igProfilBtn2" href="#" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+    <div>
+      <h4>Site Haritası</h4>
+      <ul>
+        <li><a href="#dernek">Derneğimiz</a></li>
+        <li><a href="#tarih">Tarihçe</a></li>
+        <li><a href="#faaliyet">Faaliyetler</a></li>
+        <li><a href="#senlik">Şenlik Programı</a></li>
+        <li><a href="#galeri">Galeri</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Kaynaklar</h4>
+      <ul>
+        <li><a href="https://tr.wikipedia.org/wiki/Ar%C4%B1t,_Bart%C4%B1n" target="_blank" rel="noopener">Arıt — Vikipedi</a></li>
+        <li><a href="https://www.visitbartin.com" target="_blank" rel="noopener">Visit Bartın</a></li>
+        <li><a href="https://yigm.ktb.gov.tr/TR-10345/gurcuoluk-magarasi---bartin.html" target="_blank" rel="noopener">Gürcüoluk Mağarası</a></li>
+        <li><a href="https://www.bakka.gov.tr" target="_blank" rel="noopener">BAKKA — Arıt Havzası Planı</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-alt">
+    <span>© <span id="yil"></span> ARITDER — Arıt Köyü Kültür, Turizm ve Kalkınma Derneği</span>
+    <span>Arıt'ta 🐝 sevgisiyle yapıldı</span>
+  </div>
+</footer>
+
+<!-- ışık kutusu (galeri büyütme) -->
+<div id="isikKutusu" role="dialog" aria-label="Fotoğraf görüntüleyici">
+  <button class="kapat" aria-label="Kapat">✕</button>
+  <img src="" alt="">
+</div>
+
+<script>
+/* ============================================================
+   AYARLAR — burayı kendinize göre düzenleyin
+   ============================================================ */
+const AYARLAR = {
+  // Facebook sayfanızın adresindeki kullanıcı adı (facebook.com/XXXX):
+  facebookSayfa: "ARIT74",
+  // Instagram kullanıcı adınız (@ işareti olmadan):
+  instagramKullanici: "aritder",
+  // Şenlik başlangıç ve bitişi:
+  senlikBaslangic: "2026-08-14T13:00:00+03:00",
+  senlikBitis:     "2026-08-16T22:00:00+03:00",
+  // Arıt koordinatları (hava durumu için):
+  enlem: 41.6833, boylam: 32.6167
+};
+
+/* ---- Facebook canlı akış (Sayfa Eklentisi) ---- */
+(function(){
+  const href = encodeURIComponent("https://www.facebook.com/" + AYARLAR.facebookSayfa);
+  document.getElementById("fbKutu").innerHTML =
+    '<iframe class="fb-cerceve" loading="lazy" title="Facebook sayfa akışı" ' +
+    'src="https://www.facebook.com/plugins/page.php?href=' + href +
+    '&tabs=timeline&width=500&height=560&small_header=false&adapt_container_width=true' +
+    '&hide_cover=false&show_facepile=true" allow="encrypted-media"></iframe>' +
+    '<div style="margin-top:12px"><a class="sos-btn sos-fb" target="_blank" rel="noopener" ' +
+    'href="https://www.facebook.com/' + AYARLAR.facebookSayfa + '">Sayfayı Facebook\'ta Aç</a></div>';
+  const fbUrl = "https://www.facebook.com/" + AYARLAR.facebookSayfa;
+  const igUrl = "https://www.instagram.com/" + AYARLAR.instagramKullanici;
+  document.getElementById("fbProfilBtn").href = fbUrl;
+  document.getElementById("igProfilBtn").href = igUrl;
+  document.getElementById("igProfilBtn2").href = igUrl;
+})();
+
+/* ---- geri sayım ---- */
+(function(){
+  const bas = new Date(AYARLAR.senlikBaslangic).getTime();
+  const bit = new Date(AYARLAR.senlikBitis).getTime();
+  const gEl=document.getElementById("sGun"),sEl=document.getElementById("sSaat"),
+        dEl=document.getElementById("sDakika"),snEl=document.getElementById("sSaniye"),
+        baslik=document.getElementById("sayimBaslik"),alt=document.getElementById("sayimAlt"),
+        kutular=document.getElementById("sayimKutular");
+  function guncelle(){
+    const simdi = Date.now();
+    if(simdi >= bas && simdi <= bit){
+      baslik.textContent = "🎉 Şenlik ŞU AN devam ediyor!";
+      alt.textContent = "Arıt Yaylaları'nda buluşalım — herkes davetli!";
+      kutular.innerHTML = '<div class="skutu" style="min-width:200px"><b style="font-size:1.5rem">🏕️ CANLI</b><span>Arıt\'tayız</span></div>';
+      return;
+    }
+    if(simdi > bit){
+      baslik.textContent = "🍂 Bu yılki şenlik sona erdi";
+      alt.textContent = "Emeği geçen herkese teşekkürler — seneye yeniden Arıt'ta!";
+      kutular.style.display = "none";
+      return;
+    }
+    let f = Math.floor((bas - simdi)/1000);
+    const g=Math.floor(f/86400); f%=86400;
+    const s=Math.floor(f/3600);  f%=3600;
+    const d=Math.floor(f/60);
+    gEl.textContent=g; sEl.textContent=String(s).padStart(2,"0");
+    dEl.textContent=String(d).padStart(2,"0"); snEl.textContent=String(f%60).padStart(2,"0");
+  }
+  guncelle(); setInterval(guncelle,1000);
+})();
+
+/* ---- hava durumu (open-meteo, ücretsiz, anahtarsız) ---- */
+(function(){
+  const kodlar={0:["☀️","açık"],1:["🌤️","az bulutlu"],2:["⛅","parçalı bulutlu"],3:["☁️","bulutlu"],
+    45:["🌫️","sisli"],48:["🌫️","kırağılı sis"],51:["🌦️","çisenti"],53:["🌦️","çisenti"],55:["🌧️","çisenti"],
+    61:["🌧️","hafif yağmur"],63:["🌧️","yağmurlu"],65:["🌧️","kuvvetli yağmur"],
+    71:["🌨️","hafif kar"],73:["❄️","karlı"],75:["❄️","yoğun kar"],
+    80:["🌦️","sağanak"],81:["🌧️","sağanak"],82:["⛈️","kuvvetli sağanak"],
+    95:["⛈️","gök gürültülü"],96:["⛈️","dolu"],99:["⛈️","dolu"]};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude="+AYARLAR.enlem+
+        "&longitude="+AYARLAR.boylam+"&current_weather=true&timezone=Europe%2FIstanbul")
+    .then(c=>c.json()).then(v=>{
+      const h=v.current_weather; if(!h) return;
+      const k=kodlar[h.weathercode]||["🌡️",""];
+      document.getElementById("havaDerece").textContent=Math.round(h.temperature);
+      document.getElementById("havaIkon").textContent=k[0];
+      document.getElementById("havaDurum").textContent=k[1];
+      document.getElementById("hava").style.display="flex";
+    }).catch(()=>{}); // internet yoksa sessizce gizli kalır
+})();
+
+/* ---- menü davranışı ---- */
+const menuBar=document.getElementById("menuBar");
+const hamburger=document.getElementById("hamburger");
+const menuListe=document.getElementById("menuListe");
+addEventListener("scroll",()=>{
+  menuBar.classList.toggle("dolu",scrollY>60);
+  const y=(scrollY)/(document.documentElement.scrollHeight-innerHeight);
+  document.getElementById("balCubuk").style.width=(y*100)+"%";
+},{passive:true});
+hamburger.addEventListener("click",()=>menuListe.classList.toggle("acik"));
+menuListe.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>menuListe.classList.remove("acik")));
+
+/* ---- hero paralaks ---- */
+const katmanlar=document.querySelectorAll(".hero-katman");
+addEventListener("scroll",()=>{
+  const y=scrollY;
+  katmanlar.forEach(k=>{k.style.transform="translateY("+(y*parseFloat(k.dataset.hiz))+"px)"});
+},{passive:true});
+
+/* ---- scroll'da belirme + sayaçlar ---- */
+const gozlemci=new IntersectionObserver(girisler=>{
+  girisler.forEach(g=>{
+    if(!g.isIntersecting) return;
+    g.target.classList.add("goster");
+    g.target.querySelectorAll("b[data-hedef]").forEach(b=>{
+      if(b.dataset.calisti) return; b.dataset.calisti=1;
+      const hedef=+b.dataset.hedef; const t0=performance.now();
+      (function adim(t){
+        const oran=Math.min((t-t0)/1600,1);
+        b.textContent=Math.round(hedef*(1-Math.pow(1-oran,3)));
+        if(oran<1) requestAnimationFrame(adim);
+      })(t0);
+    });
+    gozlemci.unobserve(g.target);
+  });
+},{threshold:.15});
+document.querySelectorAll(".gizli").forEach(e=>gozlemci.observe(e));
+
+/* ---- tema (localStorage kapalıysa da çalışır) ---- */
+const hafiza={
+  oku:k=>{try{return localStorage.getItem(k)}catch(e){return null}},
+  yaz:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}
+};
+const temaBtn=document.getElementById("temaBtn");
+if(hafiza.oku("aritder-tema")==="gece"){
+  document.documentElement.dataset.tema="gece"; temaBtn.textContent="☀️";
+}
+temaBtn.addEventListener("click",()=>{
+  const gece=document.documentElement.dataset.tema==="gece";
+  document.documentElement.dataset.tema=gece?"":"gece";
+  temaBtn.textContent=gece?"🌙":"☀️";
+  hafiza.yaz("aritder-tema",gece?"":"gece");
+});
+
+/* ---- galeri ışık kutusu ---- */
+const kutu=document.getElementById("isikKutusu");
+const kutuImg=kutu.querySelector("img");
+document.querySelectorAll(".gfoto img").forEach(img=>{
+  img.addEventListener("click",()=>{
+    kutuImg.src=img.src; kutuImg.alt=img.alt; kutu.classList.add("acik");
+  });
+});
+kutu.addEventListener("click",()=>kutu.classList.remove("acik"));
+addEventListener("keydown",e=>{if(e.key==="Escape")kutu.classList.remove("acik")});
+
+/* ---- yıl ---- */
+document.getElementById("yil").textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
