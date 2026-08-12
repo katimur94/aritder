@@ -90,6 +90,8 @@ header{position:relative;height:100vh;min-height:640px;display:flex;
 html[data-tema="gece"] header{background:linear-gradient(180deg,#050f0a 0%,#0b241b 50%,#143c2e 100%)}
 .hero-katman{position:absolute;left:0;right:0;bottom:0;width:100%;pointer-events:none}
 .hero-icerik{position:relative;z-index:5;color:#fff;padding:0 20px;max-width:920px}
+.hero-logo{width:138px;height:138px;margin:0 auto 22px;display:block;
+  filter:drop-shadow(0 12px 34px rgba(0,0,0,.5));opacity:0;animation:yukari .9s .12s forwards}
 .hero-ust{font-size:.95rem;letter-spacing:6px;text-transform:uppercase;
   color:var(--bal-acik);font-weight:700;margin-bottom:18px;opacity:0;animation:yukari 1s .3s forwards}
 .hero-icerik h1{font-size:clamp(3rem,9vw,6.5rem);line-height:1.05;font-weight:800;
@@ -352,15 +354,22 @@ footer a:hover{color:var(--bal-acik)}
   .durak{width:100%;left:0!important;text-align:left!important;padding:0 0 44px 44px}
   .durak::before{left:3px!important;right:auto!important}
   #hamburger{display:block}
-  .menu{position:fixed;inset:0;background:var(--yesil-koyu);flex-direction:column;
-    justify-content:center;transform:translateX(100%);transition:transform .35s;z-index:940}
+  .menu{position:fixed;top:0;left:0;width:100%;height:100dvh;background:var(--yesil-koyu);
+    flex-direction:column;justify-content:center;transform:translateX(100%);
+    transition:transform .35s;z-index:940;overflow-y:auto;padding:90px 0 50px;gap:6px}
   .menu.acik{transform:none}
   .menu a{color:#fff!important;font-size:1.3rem}
+  /* menü açıkken ✕ düğmesi her zaman beyaz ve X şeklinde */
+  .menu.acik ~ #hamburger span{background:#fff!important}
+  .menu.acik ~ #hamburger span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+  .menu.acik ~ #hamburger span:nth-child(2){opacity:0}
+  .menu.acik ~ #hamburger span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+  body.menu-kilit{overflow:hidden}
   #hava{top:auto;bottom:90px;right:16px}
 }
 @media(prefers-reduced-motion:reduce){
   *,#ari,#ari svg,.kanat{animation:none!important;transition:none!important}
-  .hero-ust,.hero-icerik h1,.hero-alt,.hero-btnler{opacity:1}
+  .hero-logo,.hero-ust,.hero-icerik h1,.hero-alt,.hero-btnler{opacity:1}
 }
 </style>
 </head>
@@ -371,11 +380,8 @@ footer a:hover{color:var(--bal-acik)}
 <!-- ================= MENÜ ================= -->
 <nav id="menuBar">
   <a class="logo" href="#anasayfa">
-    <svg class="amblem" viewBox="0 0 64 64" aria-hidden="true">
-      <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="none" stroke="#e9a319" stroke-width="3"/>
-      <path d="M18 42 L28 26 L36 36 L44 22 L50 42 Z" fill="#2d7a5b"/>
-      <circle cx="26" cy="18" r="4" fill="#f6c453"/>
-    </svg>
+    <img class="amblem" src="logo.svg" alt="ARITDER logosu"
+      onerror="this.style.display='none'">
     ARITDER
   </a>
   <ul class="menu" id="menuListe">
@@ -433,6 +439,8 @@ footer a:hover{color:var(--bal-acik)}
   </svg>
 
   <div class="hero-icerik">
+    <img class="hero-logo" src="logo.svg" alt="ARITDER — dernek logosu"
+      onerror="this.style.display='none'">
     <div class="hero-ust">Bartın · Küre Dağları'nın Eteğinde</div>
     <h1>Arıt'ın Kalbi<br><span class="bal-renk">Burada Atıyor</span></h1>
     <p class="hero-alt">ARITDER — Arıt Köyü Kültür, Turizm ve Kalkınma Derneği.
@@ -806,11 +814,8 @@ footer a:hover{color:var(--bal-acik)}
   <div class="foot-izgara">
     <div>
       <div class="foot-logo">
-        <svg class="amblem" viewBox="0 0 64 64" aria-hidden="true">
-          <polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="none" stroke="#e9a319" stroke-width="3"/>
-          <path d="M18 42 L28 26 L36 36 L44 22 L50 42 Z" fill="#2d7a5b"/>
-          <circle cx="26" cy="18" r="4" fill="#f6c453"/>
-        </svg>
+        <img class="amblem" src="logo.svg" alt="ARITDER logosu" style="width:64px;height:64px"
+          onerror="this.style.display='none'">
         ARITDER
       </div>
       <p style="font-size:.9rem;max-width:380px">Arıt Köyü Kültür, Turizm ve Kalkınma Derneği.
@@ -946,8 +951,14 @@ addEventListener("scroll",()=>{
   const y=(scrollY)/(document.documentElement.scrollHeight-innerHeight);
   document.getElementById("balCubuk").style.width=(y*100)+"%";
 },{passive:true});
-hamburger.addEventListener("click",()=>menuListe.classList.toggle("acik"));
-menuListe.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>menuListe.classList.remove("acik")));
+hamburger.addEventListener("click",()=>{
+  menuListe.classList.toggle("acik");
+  document.body.classList.toggle("menu-kilit",menuListe.classList.contains("acik"));
+});
+menuListe.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{
+  menuListe.classList.remove("acik");
+  document.body.classList.remove("menu-kilit");
+}));
 
 /* ---- hero paralaks ---- */
 const katmanlar=document.querySelectorAll(".hero-katman");
