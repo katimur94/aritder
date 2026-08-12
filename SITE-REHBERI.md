@@ -1,5 +1,10 @@
 # 🐝 ARITDER Sitesi — Kullanım Rehberi
 
+## 🌐 SİTE CANLI YAYINDA!
+- **Site adresi:** https://katimur94.github.io/aritder/
+- **Kod deposu:** https://github.com/katimur94/aritder
+- Güncelleme yapmak için: `index.html`'i düzenleyin → GitHub'daki repoya yükleyin (github.com/katimur94/aritder → "Add file" → "Upload files") → 1-2 dakika içinde site kendini günceller. Ya da Claude'a "siteyi güncelle" deyin, o halleder.
+
 ## Siteyi açmak
 `index.html` dosyasına **çift tıklayın** — tarayıcıda açılır. Kurulum, program, internet sunucusu gerekmez; sitenin tamamı tek dosyadır.
 
