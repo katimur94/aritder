@@ -1,61 +1,82 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="ARITDER — Arıt Köyü Kültür Turizm ve Kalkınma Derneği logosu">
   <defs>
-    <path id="ustYay" d="M 120,120 m -95,0 a 95,95 0 1 1 190,0" fill="none"/>
-    <path id="altYay" d="M 120,120 m -98,0 a 98,98 0 0 0 196,0" fill="none"/>
-    <clipPath id="icDaire"><circle cx="120" cy="120" r="82"/></clipPath>
-    <linearGradient id="gok" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#e8eef0"/><stop offset="1" stop-color="#cfdcd4"/>
+    <path id="ustYay" d="M 120,120 m -96,0 a 96,96 0 1 1 192,0" fill="none"/>
+    <path id="altYay" d="M 23.4,94.3 A 99,99 0 1 0 216.6,94.3" fill="none"/>
+    <clipPath id="icDaire"><circle cx="120" cy="120" r="81"/></clipPath>
+    <linearGradient id="halka" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1db3a2"/><stop offset=".55" stop-color="#19a878"/><stop offset="1" stop-color="#16a24a"/>
     </linearGradient>
-    <linearGradient id="kaya" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#d8d6cd"/><stop offset="1" stop-color="#a5a49a"/>
+    <linearGradient id="gok" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6fc3ef"/><stop offset="1" stop-color="#d6ecf8"/>
+    </linearGradient>
+    <linearGradient id="kayaG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4f3ee"/><stop offset="1" stop-color="#c9c9c0"/>
     </linearGradient>
   </defs>
 
-  <!-- yeşil halka -->
-  <circle cx="120" cy="120" r="119" fill="#1e9550"/>
-  <circle cx="120" cy="120" r="119" fill="none" stroke="#0d5c2f" stroke-width="2"/>
-  <circle cx="120" cy="120" r="83.5" fill="none" stroke="#ffffff" stroke-width="2"/>
+  <!-- gradyan halka + beyaz çerçeveler -->
+  <circle cx="120" cy="120" r="119" fill="url(#halka)"/>
+  <circle cx="120" cy="120" r="117.5" fill="none" stroke="#ffffff" stroke-width="2.4"/>
+  <circle cx="120" cy="120" r="82.5" fill="none" stroke="#ffffff" stroke-width="3"/>
 
-  <!-- üst yazı: ARIT KÖYÜ -->
-  <text font-family="Manrope,Arial,sans-serif" font-size="23" font-weight="800"
-        fill="#ffffff" letter-spacing="3" stroke="#0d5c2f" stroke-width=".5">
+  <!-- ARIT KÖYÜ -->
+  <text font-family="Manrope,Arial,sans-serif" font-size="27" font-weight="800"
+        fill="#ffffff" letter-spacing="5">
     <textPath href="#ustYay" startOffset="50%" text-anchor="middle">ARIT KÖYÜ</textPath>
   </text>
-  <!-- alt yazı -->
-  <text font-family="Manrope,Arial,sans-serif" font-size="11" font-weight="700"
-        fill="#ffffff" letter-spacing="0.8">
+  <!-- alt yazı: yanlara kadar uzanan geniş yay -->
+  <text font-family="Manrope,Arial,sans-serif" font-size="13.6" font-weight="800"
+        fill="#ffffff" letter-spacing="0.9">
     <textPath href="#altYay" startOffset="50%" text-anchor="middle">KÜLTÜR TURİZM VE KALKINMA DERNEĞİ</textPath>
   </text>
 
-  <!-- orta: kayalık dağ manzarası -->
-  <circle cx="120" cy="120" r="82" fill="url(#gok)"/>
+  <!-- orta manzara -->
+  <circle cx="120" cy="120" r="81" fill="url(#gok)"/>
   <g clip-path="url(#icDaire)">
-    <!-- kayalık sırt -->
-    <polygon points="34,118 52,84 68,100 84,72 102,92 118,66 136,90 152,74 168,96 186,82 208,116 208,132 34,132"
-             fill="url(#kaya)"/>
-    <g fill="#8f8e84" opacity=".8">
-      <polygon points="84,72 92,82 84,100 76,90"/>
-      <polygon points="118,66 128,80 120,100 110,86"/>
-      <polygon points="168,96 176,104 168,118 160,108"/>
+    <!-- bulutlar -->
+    <g fill="#ffffff" opacity=".9">
+      <ellipse cx="88" cy="52" rx="16" ry="7"/><ellipse cx="102" cy="47" rx="12" ry="6"/>
+      <ellipse cx="156" cy="58" rx="14" ry="6"/><ellipse cx="168" cy="53" rx="10" ry="5"/>
+      <ellipse cx="122" cy="42" rx="10" ry="4.6"/>
     </g>
-    <g fill="#efeee8" opacity=".9">
-      <polygon points="102,92 110,84 116,96 108,102"/>
-      <polygon points="52,84 60,92 54,102 48,94"/>
-      <polygon points="152,74 158,84 152,92 146,84"/>
+    <!-- beyaz kayalık masif -->
+    <path d="M39 122 L54 104 L66 96 L84 78 L102 72 L118 62 L134 66 L152 70 L168 78 L184 88 L198 100 L206 112 L206 128 L39 128 Z"
+          fill="url(#kayaG)"/>
+    <path d="M39 122 L54 104 L66 96 L84 78 L102 72 L118 62 L134 66 L152 70 L168 78 L184 88 L198 100 L206 112"
+          fill="none" stroke="#9aa093" stroke-width="1.4" opacity=".8"/>
+    <!-- kaya dokusu: koyu benekler -->
+    <g stroke="#42604c" stroke-width="1.6" opacity=".55" fill="none" stroke-linecap="round">
+      <path d="M62 104 q4 -6 9 -4 M78 92 q5 -5 9 -2 M96 84 q4 -6 9 -4 M112 74 q5 -4 9 -1"/>
+      <path d="M128 76 q5 -4 9 -1 M146 80 q5 -4 9 0 M164 88 q5 -3 8 1 M182 98 q4 -2 7 2"/>
+      <path d="M70 112 q5 -4 9 -1 M90 102 q5 -5 9 -2 M110 92 q5 -5 9 -2 M132 90 q5 -4 9 -1"/>
+      <path d="M152 96 q5 -3 8 0 M172 104 q4 -3 8 0 M54 116 q4 -4 8 -2 M190 110 q4 -2 7 1"/>
     </g>
-    <!-- sonbahar örtüsü -->
-    <path d="M34 130 Q60 118 86 128 T140 126 T208 128 L208 150 L34 150 Z" fill="#c46a2b"/>
-    <path d="M50 132 q14 -8 30 -2 M120 128 q16 -8 34 -1" stroke="#a04d17" stroke-width="5" fill="none" opacity=".55" stroke-linecap="round"/>
-    <!-- yeşil orman -->
-    <path d="M34 148 Q56 136 78 146 T126 145 T176 146 T208 144 L208 210 L34 210 Z" fill="#1c6b38"/>
-    <g fill="#134d27">
-      <circle cx="60" cy="152" r="9"/><circle cx="84" cy="156" r="11"/><circle cx="152" cy="154" r="10"/><circle cx="182" cy="152" r="8"/>
+    <!-- sonbahar şeridi -->
+    <path d="M39 126 Q70 118 100 124 T160 122 T206 124 L206 146 L39 146 Z" fill="#d9a62a"/>
+    <g fill="#c97428" opacity=".85">
+      <ellipse cx="66" cy="132" rx="14" ry="5"/><ellipse cx="122" cy="134" rx="16" ry="5.4"/>
+      <ellipse cx="178" cy="131" rx="13" ry="4.6"/><ellipse cx="200" cy="138" rx="10" ry="4"/>
     </g>
-    <!-- vadiye inen yol -->
-    <polygon points="112,202 119,148 124,148 134,202" fill="#2e2a24"/>
-    <polygon points="116,202 120,160 122,160 128,202" fill="#4a443b" opacity=".7"/>
+    <!-- çam ormanı -->
+    <rect x="39" y="142" width="167" height="64" fill="#2e7d3a"/>
+    <g fill="#1d5c2a">
+      <path d="M52 148 l8-20 l8 20 z M46 156 l14-18 l14 18 z M42 166 l18-16 l18 16 z"/>
+      <path d="M88 150 l7-18 l7 18 z M82 158 l13-16 l13 16 z M78 168 l17-15 l17 15 z"/>
+      <path d="M156 150 l7-18 l7 18 z M150 158 l13-16 l13 16 z M146 168 l17-15 l17 15 z"/>
+      <path d="M188 148 l8-20 l8 20 z M182 158 l14-18 l14 18 z"/>
+    </g>
+    <g fill="#3f9b4a">
+      <path d="M68 154 l7-16 l7 16 z M63 162 l12-14 l12 14 z M60 172 l15-13 l15 13 z"/>
+      <path d="M136 154 l6-15 l6 15 z M131 162 l11-13 l11 13 z M128 172 l14-12 l14 12 z"/>
+      <path d="M174 156 l6-14 l6 14 z M170 164 l10-12 l10 12 z"/>
+      <path d="M104 158 l6-14 l6 14 z M100 166 l10-12 l10 12 z"/>
+    </g>
+    <!-- asfalt yol -->
+    <path d="M86 206 C96 178 106 158 114 146 L130 146 C140 160 152 180 164 206 Z" fill="#3c4148"/>
+    <path d="M114 146 L130 146 C140 160 152 180 164 206 L156 206 C146 180 134 160 126 148 Z" fill="#2e3238" opacity=".6"/>
+    <path d="M120 202 L121 188 M122 180 L123 168 M123 162 L124 152" stroke="#e8e8e8" stroke-width="2" stroke-dasharray="6 7" opacity=".8"/>
   </g>
-  <!-- kuruluş yılı -->
-  <text x="120" y="196" font-family="Manrope,Arial,sans-serif" font-size="13" font-weight="800"
-        fill="#ffffff" text-anchor="middle" stroke="#134d27" stroke-width=".6">2018</text>
+  <!-- kuruluş yılı: yolun üzerinde -->
+  <text x="125" y="192" font-family="Manrope,Arial,sans-serif" font-size="13" font-weight="800"
+        fill="#ffffff" text-anchor="middle">2018</text>
 </svg>
