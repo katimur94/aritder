@@ -192,10 +192,11 @@ html[data-tema="gece"] .etiket{color:var(--bal-acik)}
   align-items:center;box-shadow:0 24px 60px rgba(18,55,42,.25);position:relative;overflow:hidden}
 .baskan-kart::before{content:"🐝";position:absolute;right:-20px;bottom:-30px;font-size:11rem;
   opacity:.06;transform:rotate(-15deg)}
-.monogram{width:150px;height:150px;border-radius:50%;
+.monogram{width:150px;height:150px;border-radius:50%;position:relative;overflow:hidden;
   background:linear-gradient(135deg,var(--bal),var(--bal-acik));color:#3a2a05;
   display:grid;place-items:center;font-family:'Playfair Display',serif;font-size:3rem;
   font-weight:800;box-shadow:0 12px 32px rgba(233,163,25,.45);border:5px solid rgba(255,255,255,.25)}
+.monogram img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .baskan-bilgi .unvan{font-size:.8rem;letter-spacing:3px;text-transform:uppercase;
   color:var(--bal-acik);font-weight:800}
 .baskan-bilgi h3{font-size:2rem;margin:6px 0 4px}
@@ -365,7 +366,10 @@ footer a:hover{color:var(--bal-acik)}
   .menu.acik ~ #hamburger span:nth-child(2){opacity:0}
   .menu.acik ~ #hamburger span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
   body.menu-kilit{overflow:hidden}
-  #hava{top:auto;bottom:90px;right:16px}
+  /* hava rozeti: butonlarla çakışmasın diye üstte, küçük */
+  #hava{top:72px;bottom:auto;right:10px;padding:6px 12px;font-size:.75rem;gap:7px;border-radius:12px}
+  #hava .derece{font-size:1.05rem}
+  #hava #havaIkon{font-size:1.15rem!important}
 }
 @media(prefers-reduced-motion:reduce){
   *,#ari,#ari svg,.kanat{animation:none!important;transition:none!important}
@@ -515,7 +519,8 @@ footer a:hover{color:var(--bal-acik)}
 <section id="yonetim">
   <div class="dar">
     <div class="baskan-kart gizli">
-      <div class="monogram">AK</div>
+      <div class="monogram"><img src="baskan.jpg" alt="Ali Satılmış Kalaycı"
+        onerror="this.remove()">AK</div>
       <div class="baskan-bilgi">
         <div class="unvan">Dernek Başkanımız</div>
         <h3 class="serif">Ali Satılmış Kalaycı</h3>
